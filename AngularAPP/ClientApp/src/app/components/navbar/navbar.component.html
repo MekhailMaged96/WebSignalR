@@ -1,0 +1,53 @@
+<header>  
+    <nav class='navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3'>  
+      <div class="container">  
+        <a class="navbar-brand" [routerLink]='["/"]'>Employee App</a>  
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"  
+          aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">  
+          <span class="navbar-toggler-icon"></span>  
+        </button>  
+        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]='{"show": isExpanded}'>  
+          <ul class="navbar-nav flex-grow">  
+            <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>  
+              <a class="nav-link text-dark" [routerLink]='["/"]'>Home</a>  
+            </li>  
+            <li class="nav-item" [routerLinkActive]='["link-active"]'>  
+              <a class="nav-link text-dark" [routerLink]='["/employees"]'>Employees</a>  
+            </li>  
+            <i class="fa fa-bell  has-badge" style="cursor: pointer;" (click)="openModal()"></i>  
+            <div class="numberCircle" *ngIf="notification && notification?.count>0" style="cursor: pointer;"  
+              (click)="openModal()">  
+              {{notification?.count}}</div>  
+          </ul>  
+        </div>  
+      </div>  
+    </nav>  
+  </header>  
+  <footer>  
+    <nav class="navbar navbar-light bg-white mt-5 fixed-bottom">  
+      <div class="navbar-expand m-auto navbar-text">  
+        Developed with <i class="fa fa-heart"></i> by <b>Sarathlal  
+          Saseendran</b>  
+      </div>  
+    </nav>  
+  </footer>
+  
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name" class="modal-title pull-left">Notification</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngFor="let msg of messages" [ngSwitch]="msg.tranType">  
+            <h6 *ngSwitchCase="'Add'"><span class="badge badge-success">New employee '{{msg.employeeName}}' added</span></h6>  
+            <h6 *ngSwitchCase="'Edit'"><span class="badge badge-info">Employee '{{msg.employeeName}}' edited</span></h6>  
+            <h6 *ngSwitchCase="'Delete'"><span class="badge badge-warning">Employee '{{msg.employeeName}}' deleted</span></h6>  
+      </div>
+    </div>
+  </div>
+</div>
